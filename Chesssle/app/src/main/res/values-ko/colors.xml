@@ -1,0 +1,10 @@
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="splash_bg">#121212</color> ```
+    <color name="chess_piece_white">#F8F8F8</color>
+    <color name="chess_piece_white_stroke">#454545</color>
+    <color name="chess_piece_black">#454545</color>
+    <color name="chess_piece_black_stroke">#454545</color>
+    <color name="splash_background">#121212</color>
+</resources>

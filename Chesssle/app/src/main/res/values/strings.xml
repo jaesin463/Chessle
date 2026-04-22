@@ -1,0 +1,59 @@
+<resources>
+    <!-- Replace 0000000000 with your game’s project id. Example value shown above.  -->
+    <string translatable="false"  name="game_services_project_id"> 0000000000 </string>
+    <string name="default_web_client_id">286596341720-l5rqktp6i1hlh9o721cd5dpmf195ve3u.apps.googleusercontent.com</string>
+
+    <!-- Common -->
+    <string name="app_name">Chessle</string>
+    <string name="piece_white">White</string>
+    <string name="piece_black">Black</string>
+
+    <!-- LoginScreen.kt -->
+    <string name="login_button">Sign in with Google</string>
+
+    <!-- MainScreen.kt -->
+    <string name="main_show_result">Show Result</string>
+
+    <!-- ResultDialog.kt -->
+    <string name="result_success">Congrats, you won!</string>
+    <string name="result_fail">Better luck next time!</string>
+    <string name="result_answer">The Answer was:</string>
+    <string name="result_share">Share</string>
+
+    <!-- RuleDialog.kt -->
+    <string name="rule_dialog_title">Matching Rules</string>
+    <string name="rule_confirm_button">Got it!</string>
+
+    <string name="rule_section_1_title">1. Exact Notation Matching</string>
+    <string name="rule_section_1_desc">Notations must match perfectly.</string>
+
+    <string name="rule_section_2_title">2. Piece Square Matching</string>
+    <string name="rule_section_2_desc">Recognized if the piece type and start/end squares are the same.</string>
+
+    <string name="rule_footer_tip">💡 Your choice is locked after submitting your first guess!</string>
+
+    <string name="rule_status_same">● Same</string>
+    <string name="rule_status_diff">X Diff</string>
+
+    <!-- StatsDialog.kt -->
+    <string name="stats_title">User Statistics</string>
+    <string name="stats_current_streak">Current Streak</string>
+    <string name="stats_best_streak">Best Streak</string>
+    <string name="stats_total_solved">Total Solved</string>
+    <string name="stats_close">Close</string>
+
+    <string name="stats_value_streak">%1$d 🔥</string>
+    <string name="stats_value_best">%1$d 🏆</string>
+    <string name="stats_value_solved">%1$d ✅</string>
+
+    <!-- HintSelectionDialog -->
+    <string name="hint_dialog_title">Select Hint</string>
+    <string name="hint_dialog_description">Select a move you want to reveal.</string>
+    <string name="hint_dialog_confirm_with_ad">Watch Ad</string>
+    <string name="hint_dialog_cancel">Cancel</string>
+
+    <string name="hint_format_white">%1$d. %2$s</string>
+    <string name="hint_format_black">%1$d... %2$s</string>
+    <string name="hint_default_label">Hint</string>
+
+</resources>

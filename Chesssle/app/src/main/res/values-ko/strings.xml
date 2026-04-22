@@ -1,0 +1,59 @@
+<resources>
+    <!-- Replace 0000000000 with your game’s project id. Example value shown above.  -->
+    <string translatable="false"  name="game_services_project_id"> 0000000000 </string>
+    <string name="default_web_client_id">286596341720-l5rqktp6i1hlh9o721cd5dpmf195ve3u.apps.googleusercontent.com</string>
+
+    <!-- Common -->
+    <string name="app_name">체슬</string>
+    <string name="piece_white">백</string>
+    <string name="piece_black">흑</string>
+
+    <!-- LoginScreen.kt -->
+    <string name="login_button">구글 계정으로 계속하기</string>
+
+    <!-- MainScreen.kt -->
+    <string name="main_show_result">결과 확인</string>
+
+    <!-- ResultDialog.kt -->
+    <string name="result_success">정답입니다!</string>
+    <string name="result_fail">내일은 맞출 수 있을거에요!</string>
+    <string name="result_answer">정답 기보</string>
+    <string name="result_share">공유하기</string>
+
+    <!-- RuleDialog.kt -->
+    <string name="rule_dialog_title">정답 판정 규칙</string>
+    <string name="rule_confirm_button">확인</string>
+
+    <string name="rule_section_1_title">1. 기보 문자 일치</string>
+    <string name="rule_section_1_desc">기보 문자가 완벽하게 일치해야 합니다.</string>
+
+    <string name="rule_section_2_title">2. 기물 및 위치 일치</string>
+    <string name="rule_section_2_desc">기물의 종류와 시작/도착 지점이 같으면 인정됩니다.</string>
+
+    <string name="rule_footer_tip">💡 첫 제출 이후에는 선택한 답변이 고정됩니다!</string>
+
+    <string name="rule_status_same">● 일치</string>
+    <string name="rule_status_diff">X 불일치</string>
+
+    <!-- StatsDialog.kt -->
+    <string name="stats_title">사용자 통계</string>
+    <string name="stats_current_streak">현재 스트릭</string>
+    <string name="stats_best_streak">최대 스트릭</string>
+    <string name="stats_total_solved">해결한 문제 수</string>
+    <string name="stats_close">닫기</string>
+
+    <string name="stats_value_streak">%1$d 🔥</string>
+    <string name="stats_value_best">%1$d 🏆</string>
+    <string name="stats_value_solved">%1$d ✅</string>
+
+    <!-- HintSelectionDialog -->
+    <string name="hint_dialog_title">힌트 선택</string>
+    <string name="hint_dialog_description">정답을 확인하고 싶은 칸을 선택해주세요.</string>
+    <string name="hint_dialog_confirm_with_ad">광고 보기</string>
+    <string name="hint_dialog_cancel">취소</string>
+
+    <string name="hint_format_white">%1$d. %2$s</string>
+    <string name="hint_format_black">%1$d... %2$s</string>
+    <string name="hint_default_label">Hint</string>
+
+</resources>

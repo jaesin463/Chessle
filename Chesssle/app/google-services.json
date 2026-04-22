@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "286596341720",
+    "firebase_url": "https://chee-f526f-default-rtdb.firebaseio.com",
+    "project_id": "chee-f526f",
+    "storage_bucket": "chee-f526f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286596341720:android:cfede95b51a5333dcf9cad",
+        "android_client_info": {
+          "package_name": "com.xinxe.chessle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286596341720-5ofqg4c9tosdqkr4170gbr4irlto1ire.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xinxe.chessle",
+            "certificate_hash": "3632e9936b4bfd6d98e05a62c4ab83843c6cefe0"
+          }
+        },
+        {
+          "client_id": "286596341720-l5rqktp6i1hlh9o721cd5dpmf195ve3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7CgVL6McYPmC6o8I0OXLkqIAiZ-tk3GQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286596341720-l5rqktp6i1hlh9o721cd5dpmf195ve3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
