@@ -7,6 +7,7 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.exceptions.NoCredentialException
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.xinxe.chessle.BuildConfig
 import kotlinx.coroutines.tasks.await
 
 
@@ -53,11 +55,14 @@ class AuthManager(private val context: Context) {
                 val authCredential = GoogleAuthProvider.getCredential(idToken, null)
                 val authResult = auth.signInWithCredential(authCredential).await()
 
-                Log.d("AuthManager", "로그인 성공: ${authResult.user?.displayName}")
+                if (BuildConfig.DEBUG) Log.d("AuthManager", "로그인 성공")
                 authResult.user
             } else {
                 null
             }
+        } catch (e: NoCredentialException) {
+            if (BuildConfig.DEBUG) Log.d("AuthManager", "사용 가능한 인증 정보 없음")
+            null
         } catch (e: GetCredentialException) {
             Log.e("AuthManager", "인증 실패: ${e.message}")
             null
@@ -71,7 +76,7 @@ class AuthManager(private val context: Context) {
         return try {
             // FirebaseAuth의 이메일 로그인 메서드 호출 및 suspend 확장을 위한 await() 사용
             val authResult = auth.signInWithEmailAndPassword(email, password).await()
-            Log.d("AuthManager", "이메일 로그인 성공: ${authResult.user?.email}")
+            if (BuildConfig.DEBUG) Log.d("AuthManager", "이메일 로그인 성공")
             authResult.user
         } catch (e: Exception) {
             Log.e("AuthManager", "이메일 로그인 실패: ${e.message}")

@@ -51,6 +51,7 @@
     <string name="hint_dialog_description">정답을 확인하고 싶은 칸을 선택해주세요.</string>
     <string name="hint_dialog_confirm_with_ad">광고 보기</string>
     <string name="hint_dialog_cancel">취소</string>
+    <string name="hint_ad_unavailable">광고가 아직 준비되지 않았습니다. 잠시 후 다시 시도해주세요.</string>
 
     <string name="hint_format_white">%1$d. %2$s</string>
     <string name="hint_format_black">%1$d... %2$s</string>

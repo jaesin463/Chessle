@@ -1,6 +1,5 @@
 package com.xinxe.chessle.domain.usecase
 
-import android.util.Log
 import com.xinxe.chessle.domain.model.Opening
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -51,8 +50,6 @@ object GetDailyQuestionUseCase {
                 todaySelection = selected
             }
         }
-
-        Log.d("Chessle_Debug", "$todaySelection")
 
         return todaySelection
     }

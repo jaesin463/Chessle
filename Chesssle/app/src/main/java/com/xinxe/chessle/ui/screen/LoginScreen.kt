@@ -17,8 +17,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.xinxe.chessle.BuildConfig
 import com.xinxe.chessle.R
 import com.xinxe.chessle.data.auth.AuthManager
+import com.xinxe.chessle.ui.dialogs.TestLoginDialog
 import com.xinxe.chessle.ui.theme.ChessGreen
 import com.xinxe.chessle.viewmodel.ChessViewModel
 import kotlinx.coroutines.launch
@@ -62,9 +64,11 @@ fun LoginScreen(
                     }
                     lastClickTime = currentTime
 
-                    Log.d("Chessle_Debug", "clickCount: $clickCount 회")
+                    if (BuildConfig.DEBUG) {
+                        Log.d("Chessle_Debug", "clickCount: $clickCount 회")
+                    }
 
-                    if (clickCount >= 8) {
+                    if (BuildConfig.DEBUG && clickCount >= 8) {
                         showTestLoginDialog = true
                         clickCount = 0
                     }
@@ -159,48 +163,6 @@ private fun LogoSection(onLogoClick: () -> Unit) {
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TestLoginDialog(
-    onDismiss: () -> Unit,
-    onLoginClick: (String, String) -> Unit
-) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Tester Login") },
-        text = {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Email") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    label = { Text("Password") },
-                    visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-        },
-        confirmButton = {
-            Button(onClick = { onLoginClick(email, password) }) {
-                Text("Login")
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel")
-            }
-        }
-    )
 }
 
 @Composable

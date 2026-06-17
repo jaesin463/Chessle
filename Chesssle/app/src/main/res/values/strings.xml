@@ -51,6 +51,7 @@
     <string name="hint_dialog_description">Select a move you want to reveal.</string>
     <string name="hint_dialog_confirm_with_ad">Watch Ad</string>
     <string name="hint_dialog_cancel">Cancel</string>
+    <string name="hint_ad_unavailable">Ad is not ready yet. Please try again soon.</string>
 
     <string name="hint_format_white">%1$d. %2$s</string>
     <string name="hint_format_black">%1$d... %2$s</string>

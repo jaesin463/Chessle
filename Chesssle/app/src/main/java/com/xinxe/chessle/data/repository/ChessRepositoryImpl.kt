@@ -79,7 +79,7 @@ class ChessRepositoryImpl(
             }
 
             // 2. 오늘 풀던 기록 동기화 (오늘 이미 풀었거나 진행 중인 기록이 클라우드에 있다면)
-            if (cloudStats.lastSolvedDate == today) {
+            if (cloudStats.hasDailyProgressFor(today)) {
                 localSource.saveGameProgress(
                     history = cloudStats.dailyAttempts,
                     hasWon = cloudStats.dailySolved
@@ -92,4 +92,9 @@ class ChessRepositoryImpl(
     }
 
     private fun getTodayStr(): String = dateFormatter.format(Date())
+
+    private fun UserStats.hasDailyProgressFor(today: String): Boolean {
+        val wasUpdatedToday = dateFormatter.format(Date(lastUpdated)) == today
+        return lastSolvedDate == today || (wasUpdatedToday && dailyAttempts.isNotEmpty())
+    }
 }
