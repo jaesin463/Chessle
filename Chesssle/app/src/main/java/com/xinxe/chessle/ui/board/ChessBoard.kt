@@ -5,12 +5,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.xinxe.chessle.R
 import com.xinxe.chessle.domain.model.*
 import com.xinxe.chessle.ui.theme.MoveHint
@@ -27,7 +34,9 @@ fun ChessBoard(
     val lightSquareColor = MaterialTheme.colorScheme.secondary
     val hintColor = MoveHint
 
-    BoxWithConstraints(modifier = modifier) {
+    BoxWithConstraints(
+        modifier = modifier.clip(RoundedCornerShape(10.dp))
+    ) {
         val squareSize = maxWidth / 8
         // 기물이 칸에 꽉 차지 않도록 약간의 여백(Padding)을 줍니다.
         val piecePadding = squareSize * 0.15f
@@ -48,6 +57,12 @@ fun ChessBoard(
                                 .clickable { onSquareClick(rank, file) },
                             contentAlignment = Alignment.Center
                         ) {
+                            CoordinateLabels(
+                                rank = rank,
+                                file = file,
+                                isDarkSquare = square.isDarkSquare
+                            )
+
                             // 1. 기물 표시 (XML 리소스 반영)
                             square.piece?.let { piece ->
                                 PieceImage(
@@ -71,6 +86,35 @@ fun ChessBoard(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun BoxScope.CoordinateLabels(rank: Int, file: Int, isDarkSquare: Boolean) {
+    val labelColor = if (isDarkSquare) Color.White.copy(alpha = 0.62f) else Color.Black.copy(alpha = 0.54f)
+
+    if (file == 0) {
+        Text(
+            text = (8 - rank).toString(),
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(start = 3.dp, top = 1.dp),
+            color = labelColor,
+            style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.sp),
+            fontWeight = FontWeight.Black
+        )
+    }
+
+    if (rank == 7) {
+        Text(
+            text = "abcdefgh"[file].toString(),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 3.dp, bottom = 1.dp),
+            color = labelColor,
+            style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.sp),
+            fontWeight = FontWeight.Black
+        )
     }
 }
 

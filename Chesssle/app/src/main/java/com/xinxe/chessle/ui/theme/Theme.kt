@@ -23,9 +23,9 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = Color.White,
     secondary = BoardLight,
     tertiary = GoldAccent,
-    background = Color.White,
-    surface = Color(0xFFF1F1F1),
-    onSurface = Color.Black,
+    background = ModalDeepGreen,
+    surface = ModalDeepGreen,
+    onSurface = Color.White,
     onSurfaceVariant = Color.Gray
 )
 

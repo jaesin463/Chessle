@@ -19,8 +19,9 @@ val FeedbackAbsent = Color(0xFF3A3A3C)  // 진회색 (없음)
 val RuleWrong = Color(0xFFF44336)      // 강조 에러 (빨간색)
 
 // 4. 배경 및 그레이스케일
-val DarkGrey = Color(0xFF312E2B)       // 메인 배경
-val SurfaceGrey = Color(0xFF262421)    // 다이얼로그, 카드 배경
+val ModalDeepGreen = Color(0xFF07140D)
+val DarkGrey = ModalDeepGreen          // 메인 배경
+val SurfaceGrey = ModalDeepGreen       // 다이얼로그, 카드 배경
 val NotationBadgeBg = Color(0xFF424242) // 기보 배지
 
 // 5. 포인트 컬러

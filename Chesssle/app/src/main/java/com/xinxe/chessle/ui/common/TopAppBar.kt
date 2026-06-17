@@ -4,14 +4,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.xinxe.chessle.BuildConfig
 import com.xinxe.chessle.ui.theme.GoldAccent
 import com.xinxe.chessle.ui.theme.StreakInactive
 
@@ -19,8 +25,12 @@ import com.xinxe.chessle.ui.theme.StreakInactive
 fun TopAppBar(
     streakCount: Long,
     onStreakClick: () -> Unit,
-    onInfoClick: () -> Unit
+    onInfoClick: () -> Unit,
+    onDebugResetClick: () -> Unit = {},
+    onDebugAnswerClick: () -> Unit = {}
 ) {
+    var showDebugMenu by remember { mutableStateOf(false) }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,13 +57,55 @@ fun TopAppBar(
             )
 
             // 3. 오른쪽: 규칙 버튼 (규칙 설명)
-            IconButton(onClick = onInfoClick) {
-                Icon(
-                    imageVector = Icons.Default.Info,
-                    contentDescription = "Game Rules",
-                    // 회색조인 onSurfaceVariant 활용
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (BuildConfig.DEBUG) {
+                    Box {
+                        IconButton(onClick = { showDebugMenu = true }) {
+                            Icon(
+                                imageVector = Icons.Default.BugReport,
+                                contentDescription = "Debug",
+                                tint = GoldAccent
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = showDebugMenu,
+                            onDismissRequest = { showDebugMenu = false },
+                            containerColor = MaterialTheme.colorScheme.surface
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("Reset") },
+                                onClick = {
+                                    showDebugMenu = false
+                                    onDebugResetClick()
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.BugReport,
+                                        contentDescription = null,
+                                        tint = Color.White.copy(alpha = 0.7f)
+                                    )
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("Answer") },
+                                onClick = {
+                                    showDebugMenu = false
+                                    onDebugAnswerClick()
+                                }
+                            )
+                        }
+                    }
+                }
+
+                IconButton(onClick = onInfoClick) {
+                    Icon(
+                        imageVector = Icons.Default.Info,
+                        contentDescription = "Game Rules",
+                        // 회색조인 onSurfaceVariant 활용
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
         }
     }

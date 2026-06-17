@@ -24,8 +24,9 @@ fun FeedbackArea(
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
-        shape = RoundedCornerShape(8.dp)
+        color = Color.White.copy(alpha = 0.05f),
+        shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.08f))
     ) {
         LazyColumn(
             modifier = Modifier

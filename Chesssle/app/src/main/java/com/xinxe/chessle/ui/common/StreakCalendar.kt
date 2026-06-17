@@ -1,15 +1,14 @@
 package com.xinxe.chessle.ui.common
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.border
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -47,14 +46,18 @@ fun StreakCalendar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = { viewDate = viewDate.minusMonths(1) }) {
-                Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "Previous Month")
+                Icon(
+                    Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                    contentDescription = "Previous Month",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
 
             Text(
                 text = viewDate.format(DateTimeFormatter.ofPattern("yyyy년 M월")),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = Color.White
             )
 
             IconButton(
@@ -62,7 +65,11 @@ fun StreakCalendar(
                 // 미래는 볼 수 없도록 제한 (선택 사항)
                 enabled = viewDate.withDayOfMonth(1).isBefore(LocalDate.now().withDayOfMonth(1))
             ) {
-                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = "Next Month")
+                Icon(
+                    Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    contentDescription = "Next Month",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
 
@@ -96,6 +103,7 @@ fun StreakCalendar(
                             day = currentDay,
                             status = getDayStatusFromHistory(dateKey, stats.history),
                             attemptCount = record?.attemptCount ?: 0,
+                            isToday = LocalDate.now() == LocalDate.of(viewDate.year, viewDate.monthValue, currentDay),
                             modifier = Modifier.weight(1f),
                             onClick = {
                                 // TODO: 나중에 복기 기능을 위해 클릭 이벤트 처리 가능
@@ -116,6 +124,7 @@ private fun DayCell(
     day: Int,
     status: DayStatus,
     attemptCount: Int,
+    isToday: Boolean,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
@@ -124,18 +133,28 @@ private fun DayCell(
         else -> (1.1f - (attemptCount.toFloat() / 12f)).coerceIn(0.5f, 1.0f)
     }
 
+    val statusAlpha = 0.64f
     val backgroundColor = when (status) {
-        DayStatus.PERFECT -> ChessGreen.copy(alpha = intensity)
-        DayStatus.HINTED -> GoldAccent
-        DayStatus.FAILED -> MaterialTheme.colorScheme.error.copy(alpha = 0.6f)
-        DayStatus.NONE -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.1f)
+        DayStatus.PERFECT -> ChessGreen.copy(alpha = intensity * statusAlpha)
+        DayStatus.HINTED -> GoldAccent.copy(alpha = statusAlpha)
+        DayStatus.FAILED -> MaterialTheme.colorScheme.error.copy(alpha = 0.38f)
+        DayStatus.NONE -> Color.Transparent
     }
 
     Box(
         modifier = modifier
             .aspectRatio(1f)
-            .padding(2.dp)
-            .background(backgroundColor, RoundedCornerShape(4.dp))
+            .padding(4.dp)
+            .background(backgroundColor, CircleShape)
+            .border(
+                width = if (isToday && status == DayStatus.NONE) 1.dp else 0.dp,
+                color = if (isToday && status == DayStatus.NONE) {
+                    MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.45f)
+                } else {
+                    Color.Transparent
+                },
+                shape = CircleShape
+            )
             .clickable(enabled = status != DayStatus.NONE) { onClick() },
         contentAlignment = Alignment.Center
     ) {
@@ -145,7 +164,7 @@ private fun DayCell(
             color = if (status == DayStatus.NONE) {
                 MaterialTheme.colorScheme.onSurfaceVariant
             } else {
-                Color.Black
+                Color.White
             }
         )
     }
