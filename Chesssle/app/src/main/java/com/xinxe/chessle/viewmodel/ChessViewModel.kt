@@ -98,7 +98,7 @@ class ChessViewModel(
         _userStats.update { updatedStats }
 
         val today = getTodayStr()
-        if (updatedStats.lastSolvedDate == today) {
+        if (updatedStats.hasDailyProgressFor(today)) {
             _uiState.updateWithFillCheck {
                 it.copy(
                     submittedAttempts = updatedStats.dailyAttempts, // List<List<MoveAttempt>>
@@ -311,6 +311,11 @@ class ChessViewModel(
     // --- Helpers ---
 
     private fun getTodayStr(): String = dateFormatter.format(Date())
+
+    private fun UserStats.hasDailyProgressFor(today: String): Boolean {
+        val wasUpdatedToday = dateFormatter.format(Date(lastUpdated)) == today
+        return lastSolvedDate == today || (wasUpdatedToday && dailyAttempts.isNotEmpty())
+    }
 
     private fun saveStatsToInternal(
         stats: UserStats,

@@ -24,9 +24,16 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    val debugRewardedAdUnitId = "ca-app-pub-3940256099942544/5224354917"
+    val releaseRewardedAdUnitId = providers.gradleProperty("REWARDED_AD_UNIT_ID").orElse("").get()
+
     buildTypes {
+        debug {
+            buildConfigField("String", "REWARDED_AD_UNIT_ID", "\"$debugRewardedAdUnitId\"")
+        }
         release {
             isMinifyEnabled = false
+            buildConfigField("String", "REWARDED_AD_UNIT_ID", "\"$releaseRewardedAdUnitId\"")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -39,6 +46,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

@@ -29,6 +29,7 @@ fun HintSelectionDialog(
 ) {
     val mContext = LocalContext.current
     var selectedIndex by remember { mutableIntStateOf(-1) }
+    var adUnavailable by remember { mutableStateOf(false) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -71,6 +72,15 @@ fun HintSelectionDialog(
                         }
                     }
                 }
+
+                if (adUnavailable) {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(
+                        text = stringResource(id = R.string.hint_ad_unavailable),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
             }
         },
         confirmButton = {
@@ -78,10 +88,11 @@ fun HintSelectionDialog(
                 onClick = {
                     val activity = mContext as? Activity
                     if (activity != null) {
-                        adMobManager.showRewardedAd(activity) {
+                        val didShowAd = adMobManager.showRewardedAd(activity) {
                             onConfirm(selectedIndex)
                             onDismiss()
                         }
+                        adUnavailable = !didShowAd
                     }
                 },
                 enabled = selectedIndex != -1,
