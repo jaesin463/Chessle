@@ -57,7 +57,7 @@ fun ResultDialog(
             confirmButton = { },
             modifier = Modifier.fillMaxWidth(0.95f),
             shape = RoundedCornerShape(12.dp),
-            containerColor = MaterialTheme.colorScheme.background,
+            containerColor = ModalDeepGreen.copy(alpha = 0.76f),
             title = { ResultDialogTitle(state.hasWon, onDismiss) },
             text = {
                 Column(

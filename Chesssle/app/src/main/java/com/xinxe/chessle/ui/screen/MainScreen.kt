@@ -5,6 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.xinxe.chessle.R
@@ -21,6 +22,7 @@ import com.xinxe.chessle.ui.effects.RainyEffect
 import com.xinxe.chessle.ui.feedback.FeedbackArea
 import com.xinxe.chessle.ui.feedback.MoveInputArea
 import com.xinxe.chessle.ui.theme.ChessGreen
+import com.xinxe.chessle.ui.theme.ModalDeepGreen
 import com.xinxe.chessle.util.AdMobManager
 import com.xinxe.chessle.viewmodel.ChessUiState
 import com.xinxe.chessle.viewmodel.ChessViewModel
@@ -34,6 +36,7 @@ fun MainScreen(chessViewModel: ChessViewModel, adMobManager: AdMobManager) {
     var showStatsDialog by remember { mutableStateOf(false) }
     var showRuleDialog by remember { mutableStateOf(false) }
     var showHintDialog by remember { mutableStateOf(false) }
+    val shouldBlurBackground = showStatsDialog || showRuleDialog
 
 
     LaunchedEffect(uiState.isGameOver) {
@@ -41,14 +44,17 @@ fun MainScreen(chessViewModel: ChessViewModel, adMobManager: AdMobManager) {
     }
 
     Scaffold(
+        modifier = Modifier.blur(if (shouldBlurBackground) 6.dp else 0.dp),
         topBar = {
             TopAppBar(
                 streakCount = userStats.currentStreak,
                 onStreakClick = { showStatsDialog = true },
-                onInfoClick = { showRuleDialog = true }
+                onInfoClick = { showRuleDialog = true },
+                onDebugResetClick = { chessViewModel.debugResetProgress() },
+                onDebugAnswerClick = { showResultDialog = true }
             )
         },
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = ModalDeepGreen
     ) { innerPadding ->
         Box(
             modifier = Modifier

@@ -21,9 +21,9 @@ fun MoveInputArea(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        // 표준: SurfaceGrey를 배경으로 사용하고 투명도로 구분
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
-        shape = RoundedCornerShape(8.dp)
+        color = Color.White.copy(alpha = 0.05f),
+        shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.08f))
     ) {
         Row(
             modifier = Modifier

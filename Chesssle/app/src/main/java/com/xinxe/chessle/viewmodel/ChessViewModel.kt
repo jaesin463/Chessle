@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
+import com.xinxe.chessle.BuildConfig
 import com.xinxe.chessle.domain.model.*
 import com.xinxe.chessle.domain.repository.ChessRepository
 import com.xinxe.chessle.domain.usecase.*
@@ -257,6 +258,41 @@ class ChessViewModel(
                 currentMoveCount = moveIndex,
                 currentTurn = if (isWhiteUndo) PieceColor.WHITE else PieceColor.BLACK
             )
+        }
+    }
+
+    fun debugResetProgress() {
+        if (!BuildConfig.DEBUG) return
+
+        val updatedStats = _userStats.value.copy(
+            dailyAttempts = emptyList(),
+            dailySolved = false,
+            dailyUsedHint = false,
+            revealedHintIndex = -1,
+            lastUpdated = System.currentTimeMillis()
+        )
+
+        _userStats.value = updatedStats
+        hintPrefs.clearTodayHint()
+        _uiState.updateWithFillCheck {
+            it.copy(
+                squares = BoardFactory.createInitialBoard(),
+                selectedSquare = null,
+                availableMoves = emptyList(),
+                currentTurn = PieceColor.WHITE,
+                currentInputMoves = List(5) { MoveAttempt() },
+                currentMoveCount = 0,
+                submittedAttempts = emptyList(),
+                isGameOver = false,
+                hasWon = false,
+                revealedHints = emptyMap(),
+                dailyUsedHint = false
+            )
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.saveUserStats(updatedStats)
+            repository.saveGameProgress(emptyList(), false)
         }
     }
 

@@ -30,4 +30,12 @@ class HintPreferenceManager(context: Context) {
             -1 // 날짜가 지났으면 힌트 초기화
         }
     }
+
+    fun clearTodayHint() {
+        prefs.edit().apply {
+            remove("hint_date")
+            remove("hint_index")
+            apply()
+        }
+    }
 }
